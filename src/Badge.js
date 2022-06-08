@@ -5,6 +5,8 @@ import { mapToCssModules, tagPropType } from './utils';
 
 const propTypes = {
   color: PropTypes.string,
+  bgColor: PropTypes.string,
+  textColor: PropTypes.string,
   pill: PropTypes.bool,
   tag: tagPropType,
   innerRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string]),
@@ -24,6 +26,8 @@ const Badge = (props) => {
     className,
     cssModule,
     color,
+    bgColor,
+    textColor,
     innerRef,
     pill,
     tag: Tag,
@@ -33,8 +37,12 @@ const Badge = (props) => {
   const classes = mapToCssModules(classNames(
     className,
     'badge',
-    'bg-' + color,
-    pill ? 'rounded-pill' : false
+    { 
+      'rounded-pill': pill,
+      ['text-bg-' + color]: color,
+      ['bg-' + bgColor]: bgColor,
+      ['text-' + textColor]: textColor,
+    }
   ), cssModule);
 
   if (attributes.href && Tag === 'span') {
